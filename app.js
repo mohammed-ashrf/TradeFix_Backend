@@ -5,6 +5,8 @@ const connectToDatabase = require('./config/database');
 const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 const config = require('./config/config');
+const cron = require('node-cron');
+const safeController = require('./controllers/safe.controller');
 const notificationController = require('./controllers/notification.controller');
 const app = express();
 
@@ -35,6 +37,8 @@ app.use(express.json());
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
+// Schedule the task to add money to the safe at 12 AM daily
+cron.schedule('0 0 * * *', safeController.resetTodayMoney);
 
 // Schedule the task to run periodically (e.g., every day at midnight)
 setInterval(notificationController.checkAndGenerateNotifications, 24 * 60 * 60 * 1000);

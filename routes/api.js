@@ -10,6 +10,9 @@ const cartController = require('../controllers/sell.controller');
 const buyerController = require('../controllers/buyer.controller');
 const expensesController = require('../controllers/expenses.controller');
 const notificationController = require('../controllers/notification.controller');
+const safeController = require('../controllers/safe.controller');
+const lossesController = require('../controllers/losses.controller');
+
 
 router.get('/devices', deviceController.getDevices);
 router.get('/devices/bypage', deviceController.getDevicesByPage);
@@ -103,6 +106,17 @@ router.post('/buyers', buyerController.sellCart);
 router.get('/expenses', expensesController.getAllExpenses);
 router.get('/expenses/filter', expensesController.getExpenses);
 router.post('/expenses', expensesController.createOrUpdateExpense);
+
+// safe api
+router.post('/safe/add', safeController.addMoney);
+router.post('/safe/deduct', safeController.deductMoney);
+router.get('/safe/balance', safeController.getSafeBalance);
+router.get('/safe/transactions', safeController.getTransactionHistory);
+router.put('/safe/initialBalance', safeController.updateInitialBalance);
+
+// losses api
+router.get('/losses', lossesController.getAllLosses);
+router.post('/losses', lossesController.createLoss);
 
 //notification API
 router.get('/notifications', notificationController.getNotifications);

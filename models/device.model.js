@@ -28,6 +28,7 @@ const deviceSchema = new mongoose.Schema({
   finished: { type: Boolean, required: false },
   receivingDate: { type: String, required: true },
   toDeliverDate: { type: String, required: true},
+  repairDate: { type: String, required: false},
   repaired: { type: Boolean, required: false },
   paidAdmissionFees: { type: Boolean, required: false },
   delivered: { type: Boolean, required: false },
