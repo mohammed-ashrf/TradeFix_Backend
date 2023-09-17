@@ -1,13 +1,7 @@
 const Notification = require('../models/notification.model');
 const Device = require('../models/device.model');
 const Product = require('../models/product.model');
-const { Telegraf } = require('telegraf');
-const bot = new Telegraf(process.env.BOT_TOKEN, { polling: false });
-bot.start((ctx)=> {
-  const chatId = ctx.chat.id;
-  ctx.reply('Hello, welcome to the app notifications!');
-  console.log(chatId);
-});
+
 async function getNotifications (req, res) {
   try {
     const notifications = await Notification.find().sort({ timestamp: -1 });
@@ -39,10 +33,8 @@ async function getRepairNotifications (req, res) {
 };
 
 async function deleteNotification(req, res) {
-  const { notificationId } = req.params.id;
-
   try {
-    const deletedNotification = await Notification.findByIdAndDelete(notificationId);
+    const deletedNotification = await Notification.findByIdAndDelete(req.params.id);
     if (!deletedNotification) {
       return res.status(404).json({ message: 'Notification not found' });
     }
@@ -63,8 +55,6 @@ async function createNotification (req, res) {
   
       const notification = new Notification({ title, message, type, id });
       const savedNotification = await notification.save();
-      bot.telegram.sendMessage(process.env.CHATID, notification.message);
-      bot.launch();
       res.status(201).json(savedNotification);
     } catch (error) {
       console.error('Failed to create notification:', error.message);
@@ -112,9 +102,6 @@ async function triggerNotificationMechanism(repairNotifications, productNotifica
     });
     
     await repairNotification.save();
-    // Send Telegram notification
-    bot.telegram.sendMessage(process.env.CHATID, `Repair ID ${notification.clientName} is scheduled to be delivered tomorrow.`);
-    bot.launch();
   }
 
   // Store product notifications in the database
@@ -132,47 +119,8 @@ async function triggerNotificationMechanism(repairNotifications, productNotifica
       id: `${notification.id}`,
     });
     await productNotification.save();
-    // Send Telegram notification
-    bot.telegram.sendMessage(process.env.CHATID, `${notification.name} has low quantity: ${notification.quantity}.`);
-    bot.launch();
   }
 }
-// bot reminder command
-// bot.command('reminder', (ctx) => {
-//   ctx.reply('Please enter the title of the reminder:');
-//   // Set a new state to handle the next user input
-//   ctx.session.reminder = { step: 'title' };
-// });
-
-// bot.on('text', (ctx) => {
-//   const { text } = ctx.message;
-//   const { reminder } = ctx.session;
-
-//   if (reminder && reminder.step === 'title') {
-//     reminder.title = text;
-//     reminder.step = 'date';
-//     ctx.reply('Please enter the date of the reminder (YYYY-MM-DD):');
-//   } else if (reminder && reminder.step === 'date') {
-//     const date = new Date(text);
-//     if (isNaN(date)) {
-//       ctx.reply('Invalid date format. Please enter the date of the reminder (YYYY-MM-DD):');
-//     } else {
-//       reminder.date = date;
-//       // Save the reminder or perform anyadditional actions with the reminder, such as storing it in the database or sending it to the user.
-//       // For example, you can send a message with the contents of the reminder to the user on the specified date.
-//       const formattedDate = reminder.date.toLocaleDateString('en-US', {
-//         year: 'numeric',
-//         month: 'long',
-//         day: 'numeric',
-//       });
-//       ctx.reply(`Your reminder "${reminder.title}" is set for ${formattedDate}.`);
-//       // Reset the reminder state
-//       ctx.session.reminder = null;
-//     }
-//   }
-// });
-
-// Add this line to enable the session middleware
 
 module.exports = {
   getNotifications,

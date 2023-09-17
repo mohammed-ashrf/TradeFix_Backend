@@ -123,5 +123,6 @@ router.get('/notifications', notificationController.getNotifications);
 router.get('/notifications-product', notificationController.getProductNotifications);
 router.get('/notifications-repair', notificationController.getRepairNotifications);
 router.post('/notifications', notificationController.createNotification);
+router.delete('/notifications/:id', notificationController.deleteNotification);
 
 module.exports = router;
