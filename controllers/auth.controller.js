@@ -5,7 +5,7 @@ const config = require('../config');
 
 exports.register = async function (req, res) {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, access } = req.body;
 
     if (!username || !email || !password || !role) {
       return res.status(400).json({ message: 'Username, email, and password are required' });
@@ -23,7 +23,7 @@ exports.register = async function (req, res) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({ username, email, password: hashedPassword, role });
+    const user = new User({ username, email, password: hashedPassword, role, access });
     const savedUser = await user.save();
 
     const token = jwt.sign({ id: savedUser._id }, config.jwtSecret, { expiresIn: '1h' });
@@ -130,13 +130,9 @@ exports.getUserById = async function(req, res) {
 
 exports.updateUser = async function(req, res) {
   try {
-    const { id, username, email, password, role } = req.body;
-
-    if (!id) {
-      return res.status(400).json({ message: 'ID is required' });
-    }
-
-    const user = await User.findById(id);
+    const { username, email, password, role, access } = req.body;
+    console.log(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -150,13 +146,19 @@ exports.updateUser = async function(req, res) {
     }
 
     if (password) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-      user.password = hashedPassword;
+      if (password !== "") {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        user.password = hashedPassword;
+      }
     }
 
     if (role) {
       user.role = role;
+    }
+
+    if (access) {
+      user.access = access;
     }
 
     const updatedUser = await user.save();
