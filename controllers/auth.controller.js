@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const config = require('../config');
+const axios = require('axios');
 
 exports.register = async function (req, res) {
   try {
@@ -27,7 +28,6 @@ exports.register = async function (req, res) {
     const savedUser = await user.save();
 
     const token = jwt.sign({ id: savedUser._id }, config.jwtSecret, { expiresIn: '1h' });
-
     res.status(201).json({ token });
   } catch (error) {
     console.error('Failed to register user:', error.message);
@@ -73,9 +73,20 @@ exports.login = async function (req, res) {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
+    
+    // axios.get(`${process.env.VERIFYURL}/${process.env.CID}/${process.env.DID}`)
+    // .then(function (response) {
+    //   if(response.data.isRegistered === true) {
+    //     const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: '1h' });
+    //     res.json({ token });
+    //   }else(
+    //     res.status(400).json({message: 'Not Authrized contact the responsible engineer to solve it'})
+    //   );
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
     const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: '1h' });
-
     res.json({ token });
   } catch (error) {
     console.error('Failed to login user:', error.message);
@@ -190,3 +201,19 @@ exports.deleteUser = async function(req, res) {
     res.status(500).json({ message: 'Failed to delete user' });
   }
 };
+
+async function verifyCompany(verificationKey, location, macAddress, ipAddress) {
+  try {
+    const response = await axios.post(process.env.VERIFYURL, {
+      verificationKey,
+      location,
+      macAddress,
+      ipAddress
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error occurred during company verification:', error);
+    throw error;
+  }
+}

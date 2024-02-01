@@ -25,6 +25,7 @@ const supplierProducts = new mongoose.Schema({
 
 const supplierSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    owner: { type: String, required: true},
     whatsappNumber: {type: String},
     address: {type: String},
     phone: { type: String},
@@ -36,6 +37,7 @@ const supplierSchema = new mongoose.Schema({
 
 const dealerSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    owner: { type: String, required: true},
     whatsappNumber: {type: String},
     address: {type: String},
     email: { type: String, unique: true, required: false },
@@ -47,6 +49,7 @@ const dollarPriceSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     date: { type: Date, default: Date.now },
 });
+
 
 const Section = mongoose.model('Section', sectionSchema);
 const ProductSection = mongoose.model('ProductSection', productSectionSchema)

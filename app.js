@@ -6,6 +6,7 @@ const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 const config = require('./config/config');
 const cron = require('node-cron');
+const path = require('path');
 const safeController = require('./controllers/safe.controller');
 const notificationController = require('./controllers/notification.controller');
 const app = express();
@@ -19,7 +20,7 @@ const app = express();
 //   origin: '*',
 //   credentials: true
 // }));
-const allowedOrigins = ['http://localhost','http://localhost:4200', 'http://localhost:80', 'http://localhost:8080', 'http://192.168.1.2'];
+const allowedOrigins = process.env.ORIGINS;
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
@@ -36,7 +37,10 @@ app.use(express.json());
 // Routes
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(`${__dirname}/public/index.html`);
+});
 // Schedule the task to add money to the safe at 12 AM daily
 cron.schedule('0 0 * * *', safeController.resetTodayMoney);
 

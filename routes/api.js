@@ -1,5 +1,8 @@
 const express = require('express');
+const multer = require('multer');
+
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
 
 const deviceController = require('../controllers/device.controller');
 const repairController = require('../controllers/repair.controller');
@@ -12,6 +15,7 @@ const expensesController = require('../controllers/expenses.controller');
 const notificationController = require('../controllers/notification.controller');
 const safeController = require('../controllers/safe.controller');
 const lossesController = require('../controllers/losses.controller');
+const companyController = require('../controllers/company.controller');
 
 
 router.get('/devices', deviceController.getDevices);
@@ -113,6 +117,7 @@ router.post('/safe/deduct', safeController.deductMoney);
 router.get('/safe/balance', safeController.getSafeBalance);
 router.get('/safe/transactions', safeController.getTransactionHistory);
 router.put('/safe/initialBalance', safeController.updateInitialBalance);
+router.get('/safe/resetTodayMoney', safeController.resetTodayMoney);
 
 // losses api
 router.get('/losses', lossesController.getAllLosses);
@@ -124,5 +129,8 @@ router.get('/notifications-product', notificationController.getProductNotificati
 router.get('/notifications-repair', notificationController.getRepairNotifications);
 router.post('/notifications', notificationController.createNotification);
 router.delete('/notifications/:id', notificationController.deleteNotification);
+
+// Company details API
+router.post('/create', upload.single('photo'), companyController.createCompany);
 
 module.exports = router;

@@ -40,39 +40,6 @@ exports.deletebuyerById = async (req, res) => {
     }
 };
 // Sell a new cart
-// exports.sellCart = async(req, res) => {
-//     try{
-//         const {cartName, buyerName, phoneNumber, totalPrice, discount, pastOwing, total, paid, owing, sellerName, payType, buyerType, date,prodducts} = req.body;
-
-//         if (!cartName ||  !totalPrice || !total || !pastOwing || !paid || !owing) {
-//             return res.status(400).json({ message: 'Cart Name, Total Price, Paid are required'});
-//         }
-
-//         const newSoldCart = new soldCart({
-//             cartName, 
-//             buyerName, 
-//             phoneNumber, 
-//             totalPrice, 
-//             discount,
-//             pastOwing, 
-//             total, 
-//             paid, 
-//             owing, 
-//             sellerName, 
-//             payType, 
-//             buyerType, 
-//             date,
-//             prodducts
-//         });
-
-//         const savedCart = await newSoldCart.save();
-
-//         res.status(201).json(savedCart);
-//     }catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// };
-
 exports.sellCart = async (req, res) => {
   try {
     const {
@@ -110,6 +77,11 @@ exports.sellCart = async (req, res) => {
 
     if (!owing) {
         return res.status(400).json({ message: 'Owing is required'});
+    };
+
+    // Check if the cart is empty
+    if (!products || products.length === 0) {
+        return res.status(400).json({ message:'Cart is empty'});
     }
 
     let buyer = await Buyer.findOne({ buyerName });

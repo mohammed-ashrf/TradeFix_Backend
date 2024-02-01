@@ -61,13 +61,13 @@ exports.deleteDeviceById = async function (req, res) {
 
 exports.createDevice = async function (req, res) {
   try {
-    const { clientName, telnum,deviceType,section,engineer,priority,clientSelection,complain,repair, products,notes,productsMoney,fees,discount,total,cash,owing,finished, receivingDate,toDeliverDate, repaired, paidAdmissionFees, delivered, returned } = req.body;
+    const { clientName, telnum,deviceType,section,engineer,priority,clientSelection,complain,repair, products,notes,productsMoney,fees,discount,total,cash,owing,finished, receivingDate,toDeliverDate, repaired, paidAdmissionFees, delivered, returned, reciever, currentEngineer } = req.body;
 
     if (!clientName) {
       return res.status(400).json({ message: 'Name is required required' });
     }
     
-    const device = new Device({ clientName, telnum,deviceType,section,engineer,priority,clientSelection,complain,repair, products,notes,productsMoney,fees,discount,total,cash,owing,finished,receivingDate, toDeliverDate,repaired, paidAdmissionFees, delivered, returned});
+    const device = new Device({ clientName, telnum,deviceType,section,engineer,priority,clientSelection,complain,repair, products,notes,productsMoney,fees,discount,total,cash,owing,finished,receivingDate, toDeliverDate,repaired, paidAdmissionFees, delivered, returned, reciever,currentEngineer});
     const savedDevice = await device.save();
     res.status(201).json(savedDevice);
   } catch (error) {
@@ -101,7 +101,6 @@ exports.moveDeviceToDelivered = async (req, res) => {
 
     // Save the updated device in the "devices" collection
     await device.save();
-
     // Create a new DeliveredDevice object using the device's data
     const deliveredDevice = new DeliveredDevice({
       _id: device._id, // Assign the same _id as the original device
@@ -129,7 +128,9 @@ exports.moveDeviceToDelivered = async (req, res) => {
       repaired: device.repaired,
       paidAdmissionFees: device.paidAdmissionFees,
       delivered: device.delivered,
-      returned: device.returned
+      returned: device.returned,
+      reciever: device.reciever,
+      currentEngineer: device.currentEngineer,
     });
 
     // Save the deliveredDevice in the "delivered devices" collection
@@ -250,12 +251,14 @@ exports.returnDeviceToDevices = async (req, res) => {
       owing: deliveredDevice.owing,
       finished: deliveredDevice.finished,
       receivingDate: deliveredDevice.receivingDate,
-      toDeliverDate: '',
-      repairDate: '',
+      toDeliverDate: deliveredDevice.deliveredDate,
+      repairDate: deliveredDevice.repairDate,
       repaired: deliveredDevice.repaired,
       paidAdmissionFees: deliveredDevice.paidAdmissionFees,
       delivered: deliveredDevice.delivered,
-      returned: deliveredDevice.returned
+      returned: deliveredDevice.returned,
+      reciever: deliveredDevice.reciever,
+      currentEngineer: deliveredDevice.currentEngineer,
     });
 
     // Insert the same document into the "devices" collection

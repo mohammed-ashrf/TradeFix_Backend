@@ -140,13 +140,13 @@ async function getSupplierById (req, res) {
 
 async function createSupplier(req, res) {
   try {
-    const { name, whatsappNumber,address,phone,notes,cash,owing,products} = req.body;
+    const { name, owner, whatsappNumber,address,phone,notes,cash,owing} = req.body;
 
     if (!name) {
       return res.status(400).json({ message: 'Name is required required' });
     }
     
-    const supplier = new Supplier({ name, whatsappNumber,address,phone,notes,cash,owing});
+    const supplier = new Supplier({ name, owner,whatsappNumber,address,phone,notes,cash,owing});
     const savedSupplier = await supplier.save();
     res.status(201).json(savedSupplier);
   } catch (error) {
@@ -346,6 +346,7 @@ async function createDealer(req, res) {
   try {
     const dealer = new Dealer({
       name: req.body.name,
+      owner: req.body.owner,
       whatsappNumber: req.body.whatsappNumber,
       address: req.body.address,
       email: req.body.email,

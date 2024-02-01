@@ -2,20 +2,17 @@ const mongoose = require('mongoose');
 
 const CartItem = new mongoose.Schema({
     product: {
-        name: { type: String, required: true, unique: true},
-        description: { type: String },
-        purchasePrice: { type: Number, required: true },
-        deallerSellingPrice: { type: Number, required: true },
-        deallerSellingPriceAll: { type: Number, required: true },
-        userSellingPrice: { type: Number, required: true },
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+          },
+        nameOfProduct: {type: String, required: true, unique: false},
+        price: { type: Number, required: true },
         category: { type: String, required: true },
-        quantity: { type: Number, default: 0 },
-        quantitySold: {type: Number, required: false},
-        purchasedate: { type: String, required: true},
-        sellingdate: { type: String, required: false},
-        supplier: {type: String, required: false},
-        whatIsPaid: {type: Number, required: true},
-        oweing: {type: Number, required: true},
+        status: { type: String, required: true },
+        description: { type: String, required: false },
+        purchasePrice: { type: Number, required: true },
+        informationId: { type: String, required: false },
     },
     quantity: {type: Number, required: true},
     totalPrice: {type: Number, required: true},

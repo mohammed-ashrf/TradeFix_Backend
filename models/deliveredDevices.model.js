@@ -7,16 +7,27 @@ const product = new mongoose.Schema({
   productPrice: {type: Number},
   quantity: {type: Number},
 });
+const repair = new mongoose.Schema({
+  value: {type: String},
+  engineer: {type: String},
+  date: {type: Date},
+});
 const deliveredDeviceSchema = new mongoose.Schema({
   clientName: { type: String, required: true },
   telnum: { type: String, required: true },
   deviceType: { type: String, required: true },
   section: { type: String, required: true },
-  engineer: { type: String, required: false},
+  engineer: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  currentEngineer: {type:String, required: true},
   priority: { type: String, required: false},
   clientSelection: { type: String, required: true },
   complain: { type: String, required: true },
-  repair: { type: String, required: false },
+  repair: [repair],
   products: [product],
   notes: { type: String, required: false },
   productsMoney: {type: Number, required: false, default: 0},
@@ -33,6 +44,7 @@ const deliveredDeviceSchema = new mongoose.Schema({
   paidAdmissionFees: { type: Boolean, required: false },
   delivered: { type: Boolean, required: false },
   returned: { type: Boolean, required: false },
+  reciever: { type: String, required: true},
 });
 
 module.exports = mongoose.model('DeliveredDevice', deliveredDeviceSchema);

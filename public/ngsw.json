@@ -1,0 +1,134 @@
+{
+  "configVersion": 1,
+  "timestamp": 1697226706370,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.8c2ef663126774e7.js",
+        "/manifest.webmanifest",
+        "/polyfills.37d2946d9bb0f8cf.js",
+        "/runtime.fafc4b9d97209f6d.js",
+        "/styles.e4e5d31cd9730bd1.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/alahram.png",
+        "/assets/alahram.svg",
+        "/assets/icons/android-chrome-192x192.png",
+        "/assets/icons/android-chrome-512x512.png",
+        "/assets/icons/apple-touch-icon.png",
+        "/assets/icons/browserconfig.xml",
+        "/assets/icons/favicon-16x16.png",
+        "/assets/icons/favicon-32x32.png",
+        "/assets/icons/favicon.ico",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/icons/mstile-150x150.png",
+        "/assets/icons/png/repairing.png",
+        "/assets/icons/safari-pinned-tab.svg",
+        "/assets/icons/win/repairing.ico",
+        "/assets/icons/win/repairing16.ico",
+        "/assets/icons/win/repairing32.ico",
+        "/assets/icons/win/repairing48.ico",
+        "/assets/images/pattern-bg.png",
+        "/assets/logo.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "backend",
+      "patterns": [
+        "http:\\/\\/192\\.168\\.1\\.24:8080\\/.*",
+        "http:\\/\\/localhost:8080\\/.*",
+        "http:\\/\\/23\\.97\\.188\\.100:8080\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 20,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/assets/alahram.png": "e9d5813067fd62998ac699c2c2a3b8835b5d0539",
+    "/assets/alahram.svg": "43ce6e6c2c5039620410d233d53801e71fc16d55",
+    "/assets/icons/android-chrome-192x192.png": "73025c1b1dcc58cba3fab6c6d4123e666ee835a8",
+    "/assets/icons/android-chrome-512x512.png": "b0423fbd786bc27872e7fa3ab0d2c831dca61cb9",
+    "/assets/icons/apple-touch-icon.png": "a6453244e58001cf80d8cb3b86af534c36efe9b8",
+    "/assets/icons/browserconfig.xml": "46fb79e8a556afb1f44ae0e49e95d3df9c2cd3b1",
+    "/assets/icons/favicon-16x16.png": "6f106234c2e21d0916de71595aa78a32850e4064",
+    "/assets/icons/favicon-32x32.png": "0072ac76df76340ad1266648eabb7a753d9d8f4d",
+    "/assets/icons/favicon.ico": "1b51aa3936b1f538c2492d584bf7ba817c05ee14",
+    "/assets/icons/icon-128x128.png": "f2f37186071ad5db8a5ee41225772e339069041e",
+    "/assets/icons/icon-144x144.png": "761d3ae6ffba4e6ae175ba05028dc8653b199c50",
+    "/assets/icons/icon-152x152.png": "6c90365611013d6a5f91deaeed89dc1da9ea7821",
+    "/assets/icons/icon-192x192.png": "e0cf8efc44773c3db817d66a994bada2c9e1a948",
+    "/assets/icons/icon-384x384.png": "b25acc140cdf592d352656624d83b39f9703e185",
+    "/assets/icons/icon-512x512.png": "c12b617fb3c2f268e5525d048b319b2837d90fd8",
+    "/assets/icons/icon-72x72.png": "beafab2294b1433262a01926705b9937bfe2c17d",
+    "/assets/icons/icon-96x96.png": "71e34b65740bda02335839f8a3c30d6b9df6e0dd",
+    "/assets/icons/mstile-150x150.png": "29807cfe89f102ec00bd0ca6ab4aa44ceef93f5f",
+    "/assets/icons/png/repairing.png": "c12b617fb3c2f268e5525d048b319b2837d90fd8",
+    "/assets/icons/safari-pinned-tab.svg": "f177289481d2d94b773afa458fbdcaaa862e22ee",
+    "/assets/icons/win/repairing.ico": "1ac61177ee4c06fb524acd52f06341661b809b84",
+    "/assets/icons/win/repairing16.ico": "00c94231c45fad11784af2e0fc61c9cb9a96abde",
+    "/assets/icons/win/repairing32.ico": "e2dc89c89ae54d2426f65f11fbe928ac1083d8fa",
+    "/assets/icons/win/repairing48.ico": "2a9e5d7f3d7e534e94d9d9edd161639bd07d4669",
+    "/assets/images/pattern-bg.png": "2ad21216de3de9fff0afc78320e438d0cbbd9275",
+    "/assets/logo.png": "126de38c014387c198c94eda59dfae77bddbd6a8",
+    "/favicon.ico": "1ac61177ee4c06fb524acd52f06341661b809b84",
+    "/index.html": "4c0026f1e80a2cc7ee58d6b1a92fbbb5cf46781b",
+    "/main.8c2ef663126774e7.js": "b90855c5fd18ddd5c98746ddb055cc75d3e5642d",
+    "/manifest.webmanifest": "a6813e5fe9ad86a3e699b97e94625e704495f6fe",
+    "/polyfills.37d2946d9bb0f8cf.js": "6e46485e52742aa5e7705f401525f442fada3efe",
+    "/runtime.fafc4b9d97209f6d.js": "af4a59810168610a513ff079731896c5cb4e47e9",
+    "/styles.e4e5d31cd9730bd1.css": "7e4f994785c0ebf89379a2ea12d74a3f0441160d"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
