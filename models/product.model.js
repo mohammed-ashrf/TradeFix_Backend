@@ -23,7 +23,7 @@ const supplier = new mongoose.Schema({
   purchasedate: { type: String, required: true},
   whatIsPaid: {type: Number, required: true},
   oweing: {type: Number, required: true},
-  informationId: {type: String, required: true},
+  informationId: {type: String, required: false},
 });
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true},
